@@ -2,7 +2,10 @@
 
 Using `dataproc` to run Spark on Google Cloud...
 
-First install the `gcloud` CLI.
+
+
+First [install the `gcloud`
+CLI](https://cloud.google.com/sdk/docs/quickstart).
 
 ```
 # download
@@ -22,5 +25,34 @@ gcloud auth login
 
 # init
 gcloud init
+
+# create project
+gcloud projects create "$PROJECT"
+
+# enable billing in web GUI
+google-chrome console.google.com
+
+# list regions
+gcloud compute regions list
+
+```
+
+Then [run through the quickstart](https://cloud.google.com/dataproc/docs/quickstarts/quickstart-gcloud):
+
+```
+# set region
+gcloud config set dataproc/region $REGION
+
+# create example-cluster 
+gcloud dataproc clusters create $CLUSTER_NAME
+
+# submit job
+gcloud dataproc jobs submit spark --cluster example-cluster \
+    --class org.apache.spark.examples.SparkPi \
+    --jars file:///usr/lib/spark/examples/jars/spark-examples.jar -- 1000
+
+# clean up
+gcloud dataproc clusters delete $CLUSTER_NAME
+
 ```
 
